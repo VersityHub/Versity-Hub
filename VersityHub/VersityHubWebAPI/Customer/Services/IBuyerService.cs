@@ -5,6 +5,6 @@ namespace VersityHub.VersityHubWebAPI.Customer.Services
 {
     public interface IBuyerService
     {
-        Task<IdentityResult> CreatAccountAsync(ApplicationCustomer createBuyerAccount);
+        Task<IdentityResult> CreateAccountAsync(ApplicationCustomer createBuyerAccount);
     }
 }

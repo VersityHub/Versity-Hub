@@ -16,11 +16,15 @@ namespace VersityHub.VersityHubWebAPI.Customer.Controller
             _buyerService = buyerService;
         }
 
-        [HttpPost]
+        [HttpPost("createbuyeraccount")]
         public async Task<IActionResult> CreateAccount([FromBody]ApplicationCustomer createBuyerAccount)
         {
-            var result = await _buyerService.CreatAccountAsync(createBuyerAccount);
-            return Ok("Account Created Successfully");
+            var result = await _buyerService.CreateAccountAsync(createBuyerAccount);
+            if (result.Succeeded)
+            {
+                return Ok("Account Created Successfully");
+            }
+            return Unauthorized("Failed");
         }
     }
     

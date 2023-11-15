@@ -10,22 +10,10 @@ namespace VersityHub.VersityHubWebAPI.Customer.Services
         {
             _userManager = userManager;
         }
-        public async Task<IdentityResult> CreatAccountAsync(ApplicationCustomer createBuyerAccount)
+        public async Task<IdentityResult> CreateAccountAsync(ApplicationCustomer createBuyerAccount)
         {
-            var user = new ApplicationCustomer()
-            {
-                FirstName = createBuyerAccount.FirstName,
-                MiddleName = createBuyerAccount.MiddleName,
-                LastName = createBuyerAccount.LastName,
-                Email = createBuyerAccount.EmailAddress,
-                PhoneNumber = createBuyerAccount.PhoneNumber,
-                Gender = createBuyerAccount.Gender,
-                State = createBuyerAccount.State,
-                University = createBuyerAccount.University,
-                UniversityID = createBuyerAccount.UniversityID
-            };
-
-            return await _userManager.CreateAsync(user, createBuyerAccount.Password);
+            createBuyerAccount.UserName = createBuyerAccount.EmailAddress;
+            return await _userManager.CreateAsync(createBuyerAccount, createBuyerAccount.Password);
         }
     }
 }
