@@ -26,6 +26,17 @@ namespace VersityHub.VersityHubWebAPI.Customer.Controller
             }
             return Unauthorized("Failed");
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] CustomerLogin customerLogin)
+        {
+            var result = await _buyerService.LogInAsync(customerLogin);
+            if (string.IsNullOrEmpty(result))
+            {
+                return Unauthorized();
+            }
+            return Ok(result);
+        }
     }
     
 }
