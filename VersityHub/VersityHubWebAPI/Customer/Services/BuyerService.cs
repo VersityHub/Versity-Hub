@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using VersityHub.VersityHubWebAPI.Admin.Controller;
 using VersityHub.VersityHubWebAPI.Customer.Model;
 
 namespace VersityHub.VersityHubWebAPI.Customer.Services
@@ -12,18 +13,24 @@ namespace VersityHub.VersityHubWebAPI.Customer.Services
         private readonly UserManager<ApplicationCustomer> _userManager;
         private readonly SignInManager<ApplicationCustomer> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<BuyerService> _logger;
         public BuyerService(UserManager<ApplicationCustomer> userManager,
             SignInManager<ApplicationCustomer> signInManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ILogger<BuyerService> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _logger = logger;
         }
         public async Task<IdentityResult> CreateAccountAsync(ApplicationCustomer createBuyerAccount)
         {
-            createBuyerAccount.UserName = createBuyerAccount.EmailAddress;
-            return await _userManager.CreateAsync(createBuyerAccount, createBuyerAccount.Password);
+            createBuyerAccount.UserName = createBuyerAccount.Email;
+            createBuyerAccount.PhoneNumber = createBuyerAccount.Number;
+            await _userManager.CreateAsync(createBuyerAccount, createBuyerAccount.Password);
+            await _userManager.AddToRoleAsync(createBuyerAccount, "Buyer");
+            return IdentityResult.Success;
         }
 
         public async Task<string> LogInAsync(CustomerLogin customerLogin)
@@ -31,9 +38,10 @@ namespace VersityHub.VersityHubWebAPI.Customer.Services
             var result = await _signInManager.PasswordSignInAsync(customerLogin.Email, customerLogin.Password, false, false);
             if (!result.Succeeded)
             {
+                //_logger.LogInformation($"wrong {customerLogin.Email} or {customerLogin.Password}");
                 return null;
             }
-
+            
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, customerLogin.Email),

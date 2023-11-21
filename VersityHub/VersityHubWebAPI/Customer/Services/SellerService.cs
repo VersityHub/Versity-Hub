@@ -13,7 +13,8 @@ namespace VersityHub.VersityHubWebAPI.Customer.Seller
         }
         public async Task<IdentityResult> CreatAccountAsync(ApplicationCustomer createSellerAccount)
         {
-            createSellerAccount.UserName = createSellerAccount.EmailAddress;
+            createSellerAccount.UserName = createSellerAccount.Email;
+            createSellerAccount.PhoneNumber = createSellerAccount.Number;
             return await _userManager.CreateAsync(createSellerAccount, createSellerAccount.Password);
         }
     }

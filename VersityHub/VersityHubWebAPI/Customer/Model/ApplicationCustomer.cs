@@ -11,12 +11,9 @@ namespace VersityHub.VersityHubWebAPI.Customer.Model
 
         public string LastName { get; set; }
 
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string EmailAddress { get; set; }
-
         [Required(ErrorMessage = "Phone Number is required")]
         [RegularExpression(@"^\+234\d{10}$", ErrorMessage = "Invalid Phone Number format. It should start with +234 and have 10 additional digits.")]
-        public string PhoneNumber { get; set; }
+        public string Number { get; set; }
 
         public string Gender { get; set; }
 
