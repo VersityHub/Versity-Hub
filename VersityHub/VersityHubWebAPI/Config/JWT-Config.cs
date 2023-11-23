@@ -41,7 +41,7 @@ namespace VersityHub.VersityHubWebAPI.Config
 
             var authenticateResult = new AuthenticateResult(jwtToken);
 
-            return authenticateResult
+            return authenticateResult;
             
         }
     }
