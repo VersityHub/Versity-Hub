@@ -16,7 +16,7 @@ namespace VersityHub.VersityHubWebAPI.Customer.Buyer
             _sellerService = sellerService;
         }
 
-        [HttpPost("createaccount")]
+        [HttpPost("createSellerAccount")]
         public async Task<IActionResult> CreateAccount([FromBody] ApplicationCustomer createSellerAccount)
         {
             var result = await _sellerService.CreatAccountAsync(createSellerAccount);
@@ -24,7 +24,18 @@ namespace VersityHub.VersityHubWebAPI.Customer.Buyer
             {
                 return Ok("Account Created Successfully");
             }
-            return Unauthorized("Failed");
+            return Unauthorized("Email already has an account created");
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] CustomerLogin customerLogin)
+        {
+            var result = await _sellerService.LogInAsync(customerLogin);
+            if (string.IsNullOrEmpty(result))
+            {
+                return Unauthorized();
+            }
+            return Ok(result);
         }
     }
 }

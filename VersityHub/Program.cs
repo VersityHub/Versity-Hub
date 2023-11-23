@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using VersityHub.VersityHubWebAPI.Admin.Services;
+using VersityHub.VersityHubWebAPI.Config;
 using VersityHub.VersityHubWebAPI.Customer.Model;
 using VersityHub.VersityHubWebAPI.Customer.Seller;
 using VersityHub.VersityHubWebAPI.Customer.Services;
@@ -58,6 +60,8 @@ namespace VersityHub
             builder.Services.AddTransient<ISellerService, SellerService>(); 
             builder.Services.AddTransient<IBuyerService, BuyerService>(); 
             builder.Services.AddTransient<IProductService, ProductService>(); 
+            builder.Services.AddTransient<ISetupService, SetupService>(); 
+            builder.Services.AddTransient<IJWT_Config, JWT_Config>(); 
 
 
             var app = builder.Build();

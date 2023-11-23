@@ -9,7 +9,7 @@ namespace VersityHub.VersityHubWebAPI.Product.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -19,14 +19,14 @@ namespace VersityHub.VersityHubWebAPI.Product.Controller
             _productService = productService;
         }
 
-        [HttpGet("")]
+        [HttpGet("ViewAllProducts")]
         public async Task<IActionResult> ViewAllProducts()
         {
             var products = await _productService.GetProductsAsync();
             return Ok(products);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("ViewProductById/{id}")]
         public async Task<IActionResult> ViewProductById([FromRoute] int id)
         {
             var products = await _productService.GetProductByIdAsync(id);
@@ -37,7 +37,7 @@ namespace VersityHub.VersityHubWebAPI.Product.Controller
             return Ok(products);
         }
 
-        [HttpPost("")]
+        [HttpPost("AddNewProduct")]
         public async Task<IActionResult> AddNewProduct([FromBody] ProductModel productModel)
         {
             var id = await _productService.AddProductAsync(productModel);
@@ -46,7 +46,7 @@ namespace VersityHub.VersityHubWebAPI.Product.Controller
 
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateProduct/{id}")]
         public async Task<IActionResult> UpdateProduct([FromBody] ProductModel productModel, [FromRoute] int id)
         {
             await _productService.UpdateProductAsync(id, productModel);
@@ -55,7 +55,7 @@ namespace VersityHub.VersityHubWebAPI.Product.Controller
 
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteProduct/{id}")]
         public async Task<IActionResult> DeleteProduct([FromRoute] int id)
         {
             await _productService.DeleteProductAsync(id);

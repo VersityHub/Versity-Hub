@@ -29,8 +29,8 @@ namespace VersityHub.VersityHubWebAPI.Customer.Services
             createBuyerAccount.UserName = createBuyerAccount.Email;
             createBuyerAccount.PhoneNumber = createBuyerAccount.Number;
             await _userManager.CreateAsync(createBuyerAccount, createBuyerAccount.Password);
-            await _userManager.AddToRoleAsync(createBuyerAccount, "Buyer");
-            return IdentityResult.Success;
+            return await _userManager.AddToRoleAsync(createBuyerAccount, "Buyer");
+            
         }
 
         public async Task<string> LogInAsync(CustomerLogin customerLogin)
@@ -38,11 +38,11 @@ namespace VersityHub.VersityHubWebAPI.Customer.Services
             var result = await _signInManager.PasswordSignInAsync(customerLogin.Email, customerLogin.Password, false, false);
             if (!result.Succeeded)
             {
-                //_logger.LogInformation($"wrong {customerLogin.Email} or {customerLogin.Password}");
-                return null;
+                _logger.LogInformation($"wrong {customerLogin.Email} or {customerLogin.Password}");
+                return ("Incorrect Email or Password");
             }
             
-            var authClaims = new List<Claim>
+            var authClaims = new List<Claim> 
             {
                 new Claim(ClaimTypes.Name, customerLogin.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

@@ -24,7 +24,7 @@ namespace VersityHub.VersityHubWebAPI.Customer.Controller
             {
                 return Ok("Account Created Successfully");
             }
-            return Unauthorized("Failed");
+            return Unauthorized("Email already has an account created");
         }
 
         [HttpPost("login")]

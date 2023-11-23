@@ -15,7 +15,7 @@ namespace VersityHub.VersityHubWebAPI.Product.Services
             _context = context;
             _mapper = mapper;
         }
-       
+
         public async Task<List<ProductModel>> GetProductsAsync()
         {
             var records = await _context.Products.ToListAsync();
@@ -47,10 +47,10 @@ namespace VersityHub.VersityHubWebAPI.Product.Services
         {
             var product = new Products()
             {
-                Id = productId,
-                Title = productModel.Title,
+                
                 Category = productModel.Category,
-                Description = productModel.Description
+                Description = productModel.Description,
+                Price = productModel.Price
             };
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
@@ -62,6 +62,6 @@ namespace VersityHub.VersityHubWebAPI.Product.Services
             await _context.SaveChangesAsync();
         }
 
-        
+
     }
 }
