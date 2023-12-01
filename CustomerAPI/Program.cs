@@ -9,7 +9,6 @@ using VersityHub.VersityHubWebAPI.Admin.Services;
 using VersityHub.VersityHubWebAPI.Customer.Model;
 using VersityHub.VersityHubWebAPI.Customer.Seller;
 using VersityHub.VersityHubWebAPI.Customer.Services;
-using VersityHub.VersityHubWebAPI.Product.Services;
 using VersityHub.VersityHubWebAPI.Repository;
 
 
@@ -60,8 +59,7 @@ namespace VersityHub
             builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddTransient<ISellerService, SellerService>(); 
-            builder.Services.AddTransient<IBuyerService, BuyerService>(); 
-            builder.Services.AddTransient<IProductService, ProductService>(); 
+            builder.Services.AddTransient<IBuyerService, BuyerService>();  
             builder.Services.AddTransient<ISetupService, SetupService>(); 
             builder.Services.AddTransient<IJwtService, JwtService>(); 
          

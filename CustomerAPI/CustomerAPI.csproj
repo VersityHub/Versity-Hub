@@ -1,9 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dff4bc11-d79a-4e83-9805-0baedc7f7979</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,18 +21,30 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="VersityHubWebAPI\Admin\Model\" />
-    <Folder Include="VersityHubWebAPI\Config\" />
-    <Folder Include="VersityHubWebAPI\Customer\Model\Basket\" />
-    <Folder Include="VersityHubWebAPI\Customer\Model\Orders\" />
-    <Folder Include="VersityHubWebAPI\Customer\Services\Basket\" />
-    <Folder Include="VersityHubWebAPI\Customer\Services\Order\" />
-    <Folder Include="VersityHubWebAPI\Ordering\" />
+    <Folder Include="Admin\Model\" />
+    <Folder Include="Model\Basket\" />
+    <Folder Include="Model\Orders\" />
+    <Folder Include="Services\Basket\" />
+    <Folder Include="Services\Order\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
